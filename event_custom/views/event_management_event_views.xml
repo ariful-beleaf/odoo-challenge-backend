@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+
+        <!-- event.management.event -->
+        <record id="event_management_event_view_tree" model="ir.ui.view">
+            <field name="name">event.management.event.view.tree.from.type</field>
+            <field name="model">event.management.event</field>
+            <field name="priority" eval="20"/>
+            <field name="arch" type="xml">
+                <tree string="Event Management">
+                    <field name="name"/>
+                    <field name="location"/>
+                    <field name="date"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="event_management_event_view_form" model="ir.ui.view">
+            <field name="name">event.management.event.view.form</field>
+            <field name="model">event.management.event</field>
+            <field name="priority" eval="20"/>
+            <field name="arch" type="xml">
+            <form string="Event Management">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="location"/>
+                            <field name="date"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+            </field>
+        </record>
+
+        <record id="event_management_event_view_kanban" model="ir.ui.view">
+            <field name="name">event.management.event.view.kanban</field>
+            <field name="model">event.management.event</field>
+            <field name="priority" eval="20"/>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_mobile">
+                    <field name="name"/>
+                    <field name="location"/>
+                    <field name="date"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                                <div class="row">
+                                    <div class="col-8">
+                                        <strong><t t-out="record.name.value"/></strong>
+                                    </div>
+                                </div>
+                                <div><i>
+                                <t t-out="record.location.value"/>
+                                </i></div>
+                                <div><i>
+                                <t t-out="record.date.value"/>
+                                </i></div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_event_manament_event_search">
+            <field name="name">event.management.event.search</field>
+            <field name="model">event.management.event</field>
+            <field name="arch" type="xml">
+                <search string="Event Management">
+                    <field name="name" string="Title"/>
+                    <field name="location"/>
+                    <field name="date"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Location" name="location" context="{'group_by': 'location'}"/>
+                        <filter string="Date" name="date" context="{'group_by': 'date'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_event_management_view">
+           <field name="name">Event Management</field>
+           <field name="res_model">event.management.event</field>
+           <field name="view_mode">tree,form,kanban</field>
+           <field name="search_view_id" ref="view_event_manament_event_search"/>
+           <field name="help" type="html">
+              <p class="o_view_nocontent_smiling_face">
+                Create an Event
+              </p><p>
+                Schedule and organize your events.
+              </p>
+            </field>
+        </record>
+
+    </data>
+</odoo>
