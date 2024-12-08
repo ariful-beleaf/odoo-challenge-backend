@@ -4,21 +4,11 @@ import jwt
 import json
 
 from datetime import datetime
-from werkzeug.security import check_password_hash
 from odoo.exceptions import AccessDenied, ValidationError
-
-def _get_cors_headers():
-    return {
-        'Access-Control-Allow-Origin': 'http://localhost:5174',
-        'Access-Control-Allow-Methods': 'GET, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-        'Access-Control-Allow-Credentials': 'true',
-        'Content-Type': 'application/json'
-    }
 
 class CustomEventController(http.Controller):
 
-    @http.route('/api/events', type='json', auth='none', methods=['POST'], cors='*', csrf=False)
+    @http.route(['/api/events', '/api/events/<int:id>'], type='json', auth='none', methods=['POST'], cors='*', csrf=False)
     def create_event(self, **kwargs):
         try:
             # Verify JWT and admin rights
@@ -39,41 +29,53 @@ class CustomEventController(http.Controller):
                 return self._json_response({'error': 'No user found'}, 401)
             if not user.has_group('event_custom.group_event_manager'):
                 return self._json_response({'error': 'User has no access'}, 401)
-                
-            data = json.loads(request.httprequest.data)
-            if not data.get('name') or not data.get('location') or not data.get('date'):
-                return self._json_response({'error': 'Data missing: Name or Location or Date'}, 401)
-            if data.get('date'):
-                try:
-                    date_val = fields.Datetime.from_string(data['date'])
-                    if not isinstance(date_val, datetime):
-                        return self._json_response({'error': 'Invalid date format. Expected: YYYY-MM-DD HH:MM:SS'}, 401)
-                except Exception:
-                    return self._json_response({'error': 'Invalid date format. Expected: YYYY-MM-DD HH:MM:SS'}, 400)
 
-            event = request.env['event.management.event'].with_user(user).create({
-                'name': data['name'],
-                'location': data['location'],
-                'date': data['date']
-            })
-            
-            return self._json_response({
-                'id': event.id,
-                'name': event.name,
-                'location': event.location,
-                'date': event.date.strftime('%Y-%m-%d %H:%M:%S'),
-            }, 201)
+            data = json.loads(request.httprequest.data)
+            if data and not data.get('id'):
+
+                if not data.get('name') or not data.get('location') or not data.get('date'):
+                    return self._json_response({'error': 'Data missing: Name or Location or Date'}, 401)
+                if data.get('date'):
+                    try:
+                        date_val = fields.Datetime.from_string(data['date'])
+                        if not isinstance(date_val, datetime):
+                            return self._json_response({'error': 'Invalid date format. Expected: YYYY-MM-DD HH:MM:SS'}, 401)
+                    except Exception:
+                        return self._json_response({'error': 'Invalid date format. Expected: YYYY-MM-DD HH:MM:SS'}, 400)
+
+                event = request.env['event.management.event'].with_user(user).create({
+                    'name': data['name'],
+                    'location': data['location'],
+                    'date': data['date']
+                })
+
+                return self._json_response({
+                    'id': event.id,
+                    'name': event.name,
+                    'location': event.location,
+                    'date': event.date.strftime('%Y-%m-%d %H:%M:%S'),
+                }, 201)
+
+            elif data and data.get('id'):
+                id = kwargs.get('id')
+                event = request.env['event.management.event'].with_user(user).browse(int(kwargs.get('id')))
+                if not event:
+                    return self._json_response({'error': f'Event not found: {id}'}, 404)
+                if event:
+                    if data.get('id'): del data['id']
+                    event.update(data)
+                    return self._json_response({'message': 'Update Successful.'}, 200)
+            else:
+                return self._json_response({'error': f'No Data provided'}, 400)
+
             
         except Exception as e:
             return self._json_response({'error': str(e)}, 500)
 
-    @http.route('/api/events/<int:id>', type='http', auth='none', methods=['GET', 'OPTIONS'], cors='*', csrf=False)
+    @http.route('/api/events/<int:id>', type='http', auth='none', methods=['GET', 'PUT'], cors='*', csrf=False)
     def get_event(self, **kwargs):
-        headers = _get_cors_headers()
-
-        # Handle OPTIONS preflight request
-        if request.httprequest.method == 'OPTIONS':
-            return Response(status=200, headers=headers)
+        if request.httprequest.method == 'PUT':
+            return self.update_event(**kwargs)
         try:
             # Verify JWT token
             token = request.httprequest.headers.get('Authorization')
@@ -168,7 +170,6 @@ class CustomEventController(http.Controller):
         except Exception as e:
             return self._json_response({'error': str(e)}, 500)
 
-    @http.route('/api/events/<int:id>', type='http', auth='none', methods=['PUT', 'OPTIONS'], cors='*', csrf=False)
     def update_event(self, **kwargs):
         try:
             # Verify JWT token
@@ -207,7 +208,7 @@ class CustomEventController(http.Controller):
         except Exception as e:
             return self._json_response({'error': str(e)}, 500)
 
-    @http.route('/api/events/<int:id>', type='http', auth='none', methods=['DELETE', 'OPTIONS'], cors='*', csrf=False)
+    @http.route('/api/events/<int:id>', type='http', auth='none', methods=['DELETE'], cors='*', csrf=False)
     def delete_event(self, **kwargs):
         try:
             # Verify JWT token
