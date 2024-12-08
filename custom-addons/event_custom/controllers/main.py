@@ -4,17 +4,7 @@ import jwt
 import json
 
 from datetime import datetime
-from werkzeug.security import check_password_hash
 from odoo.exceptions import AccessDenied, ValidationError
-
-def _get_cors_headers():
-    return {
-        'Access-Control-Allow-Origin': 'http://localhost:5174',
-        'Access-Control-Allow-Methods': 'GET, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-        'Access-Control-Allow-Credentials': 'true',
-        'Content-Type': 'application/json'
-    }
 
 class CustomEventController(http.Controller):
 
@@ -67,13 +57,10 @@ class CustomEventController(http.Controller):
         except Exception as e:
             return self._json_response({'error': str(e)}, 500)
 
-    @http.route('/api/events/<int:id>', type='http', auth='none', methods=['GET', 'OPTIONS'], cors='*', csrf=False)
+    @http.route('/api/events/<int:id>', type='http', auth='none', methods=['GET', 'PUT'], cors='*', csrf=False)
     def get_event(self, **kwargs):
-        headers = _get_cors_headers()
-
-        # Handle OPTIONS preflight request
-        if request.httprequest.method == 'OPTIONS':
-            return Response(status=200, headers=headers)
+        if request.httprequest.method == 'PUT':
+            return self.update_event(**kwargs)
         try:
             # Verify JWT token
             token = request.httprequest.headers.get('Authorization')
@@ -168,7 +155,6 @@ class CustomEventController(http.Controller):
         except Exception as e:
             return self._json_response({'error': str(e)}, 500)
 
-    @http.route('/api/events/<int:id>', type='http', auth='none', methods=['PUT', 'OPTIONS'], cors='*', csrf=False)
     def update_event(self, **kwargs):
         try:
             # Verify JWT token
@@ -207,7 +193,7 @@ class CustomEventController(http.Controller):
         except Exception as e:
             return self._json_response({'error': str(e)}, 500)
 
-    @http.route('/api/events/<int:id>', type='http', auth='none', methods=['DELETE', 'OPTIONS'], cors='*', csrf=False)
+    @http.route('/api/events/<int:id>', type='http', auth='none', methods=['DELETE'], cors='*', csrf=False)
     def delete_event(self, **kwargs):
         try:
             # Verify JWT token
