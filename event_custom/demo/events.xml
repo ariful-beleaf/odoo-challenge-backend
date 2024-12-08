@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Demo Records for event.management.event -->
+        <record id="event_demo_01" model="event.management.event">
+            <field name="name">Annual Tech Conference 2024</field>
+            <field name="location">London ExCeL Centre</field>
+            <field name="date">2024-12-20 09:00:00</field>
+        </record>
+
+        <record id="event_demo_02" model="event.management.event">
+            <field name="name">Business Leadership Summit</field>
+            <field name="location">Paris Convention Center</field>
+            <field name="date">2024-12-22 10:00:00</field>
+        </record>
+
+        <record id="event_demo_03" model="event.management.event">
+            <field name="name">Charity Gala Dinner</field>
+            <field name="location">Berlin Intercontinental Hotel</field>
+            <field name="date">2024-12-25 18:30:00</field>
+        </record>
+
+        <record id="event_demo_04" model="event.management.event">
+            <field name="name">Digital Marketing Workshop</field>
+            <field name="location">Amsterdam RAI</field>
+            <field name="date">2024-12-28 13:00:00</field>
+        </record>
+
+        <record id="event_demo_05" model="event.management.event">
+            <field name="name">Eco-Friendly Products Expo</field>
+            <field name="location">Copenhagen Bella Center</field>
+            <field name="date">2024-12-30 09:30:00</field>
+        </record>
+
+        <record id="event_demo_06" model="event.management.event">
+            <field name="name">Fashion Week Winter 2025</field>
+            <field name="location">Milan Fashion District</field>
+            <field name="date">2025-01-05 11:00:00</field>
+        </record>
+
+        <record id="event_demo_07" model="event.management.event">
+            <field name="name">Global AI Summit</field>
+            <field name="location">Munich Technology Park</field>
+            <field name="date">2025-01-10 08:00:00</field>
+        </record>
+
+        <record id="event_demo_08" model="event.management.event">
+            <field name="name">Healthcare Innovation Conference</field>
+            <field name="location">Stockholm Waterfront</field>
+            <field name="date">2025-01-15 09:00:00</field>
+        </record>
+
+        <record id="event_demo_09" model="event.management.event">
+            <field name="name">International Food Festival</field>
+            <field name="location">Barcelona Food Hub</field>
+            <field name="date">2025-01-20 10:00:00</field>
+        </record>
+
+        <record id="event_demo_10" model="event.management.event">
+            <field name="name">Jazz Music Festival</field>
+            <field name="location">Vienna Concert Hall</field>
+            <field name="date">2025-01-25 19:00:00</field>
+        </record>
+
+        <record id="event_demo_11" model="event.management.event">
+            <field name="name">Kickstarter Projects Showcase</field>
+            <field name="location">Dublin Convention Centre</field>
+            <field name="date">2025-01-30 14:00:00</field>
+        </record>
+
+        <record id="event_demo_12" model="event.management.event">
+            <field name="name">Local Business Networking</field>
+            <field name="location">Brussels Expo</field>
+            <field name="date">2025-02-05 17:00:00</field>
+        </record>
+
+        <record id="event_demo_13" model="event.management.event">
+            <field name="name">Mobile Gaming Championship</field>
+            <field name="location">Warsaw Spodek Arena</field>
+            <field name="date">2025-02-10 12:00:00</field>
+        </record>
+
+        <record id="event_demo_14" model="event.management.event">
+            <field name="name">Nature Photography Exhibition</field>
+            <field name="location">Oslo Opera House</field>
+            <field name="date">2025-02-15 10:30:00</field>
+        </record>
+
+        <record id="event_demo_15" model="event.management.event">
+            <field name="name">Organic Farming Symposium</field>
+            <field name="location">Prague Congress Centre</field>
+            <field name="date">2025-02-20 09:00:00</field>
+        </record>
+
+        <record id="event_demo_16" model="event.management.event">
+            <field name="name">Product Design Workshop</field>
+            <field name="location">Rome EUR Convention Center</field>
+            <field name="date">2025-02-25 15:00:00</field>
+        </record>
+
+        <record id="event_demo_17" model="event.management.event">
+            <field name="name">Quantum Computing Forum</field>
+            <field name="location">Lisbon FIL</field>
+            <field name="date">2025-03-01 08:30:00</field>
+        </record>
+
+        <record id="event_demo_18" model="event.management.event">
+            <field name="name">Renewable Energy Summit</field>
+            <field name="location">Helsinki Messukeskus</field>
+            <field name="date">2025-03-05 09:00:00</field>
+        </record>
+
+        <record id="event_demo_19" model="event.management.event">
+            <field name="name">Startup Pitch Competition</field>
+            <field name="location">Madrid IFEMA</field>
+            <field name="date">2025-03-10 13:30:00</field>
+        </record>
+
+        <record id="event_demo_20" model="event.management.event">
+            <field name="name">Virtual Reality Expo</field>
+            <field name="location">Athens Metropolitan Expo</field>
+            <field name="date">2025-03-15 10:00:00</field>
+        </record>
+    </data>
+</odoo>
