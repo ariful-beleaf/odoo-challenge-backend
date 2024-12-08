@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_event_management_event_user,event.management.event.user,model_event_management_event,event_custom.group_event_user,1,1,0,0
+access_event_management_event_manager,event.management.event.manager,model_event_management_event,event_custom.group_event_manager,1,1,1,1

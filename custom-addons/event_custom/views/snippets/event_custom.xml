@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+<template id="event_custom" name="Event Management">
+ <section class="event-custom">
+    <div class="container">
+        <h2 class="event-heading">Events</h2>
+    </div>
+    <div class="row justify-content-center" id="custom-events-row">
+      <div class="col-lg-3 mb-5">
+          <div class="d-flex align-items-center">
+              <div>
+                  <h5 class="mb-0 text-primary">Event 1</h5>
+              </div>
+          </div>
+      </div>
+  </div>
+ </section>
+</template>
+
+
+</odoo>

@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+
+        <!-- MAIN MENU -->
+        <menuitem name="Event Management"
+            id="event_main_menu"
+            sequence="125"
+            groups="event_custom.group_event_user"
+            web_icon="event_custom,static/description/icon.png"/>
+
+        <!-- Submenu: EVENTS -->
+        <menuitem name="Events"
+            id="menu_event_management_event"
+            sequence="1"
+            parent="event_custom.event_main_menu"
+            groups="event_custom.group_event_user"
+            action="action_event_management_view"/>
+
+
+    </data>
+</odoo>

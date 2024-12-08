@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+<template id="basic_snippet" inherit_id="website.snippets" name="Best seller Snippet" priority="8">
+   <xpath expr="//div[@id='snippet_structure']/div[hasclass('o_panel_body')]" position="inside">
+       <t t-snippet="event_custom.event_custom"
+          t-thumbnail="/event_custom/static/src/img/snippets_thumbs/s_event_upcoming_snippet.svg"/>
+   </xpath>
+</template>
+
+</odoo>
