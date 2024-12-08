@@ -12,6 +12,11 @@
         - API endpoint for authentication
     """,
     'depends': ['base', 'web', 'base_setup'],
+    'external_dependencies': {
+            'python': [
+                'pyjwt',
+            ],
+        },
     'data': [
         "views/res_config_settings_views.xml"
     ],
