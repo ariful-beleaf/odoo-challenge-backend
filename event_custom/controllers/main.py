@@ -266,7 +266,7 @@ class CustomEventController(http.Controller):
         try:
             # Get secret key from system parameters
             secret_key = http.request.env['ir.config_parameter'].sudo().get_param(
-                'auth_custom.secret_key', 'your-secret-key'
+                'auth_custom.secret_key', '99ba3de366b2af12eee8e4747ac874bf8403162eeb7493dd50a4ad1def2f62fa'
             )
 
             # Decode and verify token
